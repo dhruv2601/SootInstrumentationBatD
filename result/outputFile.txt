@@ -1,0 +1,5 @@
+/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk
+Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request
+startForeground ; startForegroundService ; startService ; startService ; startService ; startForegroundService ; startForegroundService ; startService ; startService	|		|		|		|	
+
+

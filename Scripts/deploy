@@ -1,0 +1,8 @@
+#!/bin/tcsh -fx
+
+set apkDir = '/media/dhruv2601/lisp/Research/Battery_Optimization/APKcollector/Instrument/Soot_Instrumenter/InstrumentAPK/sootOutput'
+set adb = '/home/dhruv2601/Android/Sdk/platform-tools/adb'
+
+$adb install -r $apkDir/$1
+
+#$adb -s $device push ~/empty.log /ca.ubc.laiduling.data/ca.ubc.laiduling.data/$1/$2.log
