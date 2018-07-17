@@ -1,31 +1,19 @@
 package InstrumentAPK;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.util.*;
-
-import soot.Body;
-import soot.BodyTransformer;
-import soot.Local;
-import soot.PackManager;
-import soot.PatchingChain;
-import soot.RefType;
-import soot.Scene;
-import soot.SootClass;
-import soot.SootMethod;
-import soot.Transform;
-import soot.Unit;
+import soot.*;
 import soot.jimple.AbstractStmtSwitch;
 import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.jimple.Jimple;
-import soot.jimple.StringConstant;
 import soot.options.Options;
-import soot.util.Cons;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 public class AndroidInstrument {
@@ -34,21 +22,14 @@ public class AndroidInstrument {
 
     public static void main(String[] args) {
 
-//        String args[] = new String[2];
-//        args[0] = "-process-dir";
-//        args[1] = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/MapDisplay.apk";
-//        Settings.initialiseSoot();
 
         String apkFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk";
-        //print current apk
-        //System.out.print(apkFile);
+
         printFile(RESULTFILE,apkFile+"\n");
 
-        // print title
         String title = "Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request";
         printFile(RESULTFILE,title);
 
-        // Array to store location request, frequency and priority
         final List<String> locationRequest = new ArrayList<String>();
         final List<String> locationInterval = new ArrayList<String>();
         final List<String> locationPriority = new ArrayList<String>();
@@ -103,37 +84,6 @@ public class AndroidInstrument {
                                 provider.add(Scene.v().getActiveHierarchy().toString()+"    ");
                                 provider.add("startService");
                             }
-
-//                            locationRequest.add(String.valueOf(invokeExpr));
-//                            if(invokeExpr.getMethod().getName().equals("startService")){
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("com.google.android.gms.location.FusedLocationProviderApi")){
-//                                    provider.add("Google Location API");
-//                                } else if (invokeExpr.getMethod().getDeclaringClass().getName().equals("android.location.LocationManager")){
-//                                    provider.add("Location Manager");
-//                                    locationRequest.add("android.location.LocationManager");    //just added
-//                                }
-//                                locationRequest.add(String.valueOf(invokeExpr));
-//
-//                            } else if (invokeExpr.getMethod().getName().equals("requestSingleUpdate")){
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.location.LocationManager")){
-//                                    provider.add("Location Manager Single Update");
-//                                    locationRequest.add(String.valueOf(invokeExpr));
-//                                }
-//                            }
-//                            else if (invokeExpr.getMethod().getName().equals("setInterval")){
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("com.google.android.gms.location.LocationRequest")){
-//                                    locationInterval.add(String.valueOf(invokeExpr.getArg(0)));
-//                                }
-//                            }else if (invokeExpr.getMethod().getName().equals("setPriority")){
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("com.google.android.gms.location.LocationRequest")){
-//                                    locationPriority.add(String.valueOf(invokeExpr.getArg(0)));
-//                                }
-//                            }else if (invokeExpr.getMethod().getName().equals("setSmallestDisplacement")){
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("com.google.android.gms.location.LocationRequest")){
-//                                    locationDistance.add(String.valueOf(invokeExpr.getArg(0)));
-//                                }
-//                            }
-
                         }
 
                     });
@@ -154,7 +104,7 @@ public class AndroidInstrument {
 //                Constants.ANDROID_JAR + "android-25/android.jar"
         };
         soot.Main.main(sootArgs);
-//        soot.Main.main(args);
+
         String locationProvider = String.join(" ; ", provider);
         String locationRequestString = String.join(" ; ", locationRequest);
         String locationIntervalString = String.join(" ; ", locationInterval);
@@ -167,10 +117,6 @@ public class AndroidInstrument {
     public static void printFile(String fileName, String content){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,true))) {
             bw.write(content);
-            // no need to close it.
-            //bw.close();
-            //System.out.println("Done");
-
         } catch (IOException e) {
 
             e.printStackTrace();
