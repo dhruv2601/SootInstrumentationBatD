@@ -1,5 +1,5 @@
 /home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk
 Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request
-startForeground ; startForegroundService ; startService ; startService ; startService ; startForegroundService ; startForegroundService ; startService ; startService	|		|		|		|	
+soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startForeground ; soot.Hierarchy@7f61d116     ; startForegroundService ; soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startForegroundService ; soot.Hierarchy@7f61d116     ; startService ; soot.Hierarchy@7f61d116     ; startForegroundService	|		|		|		|	
 
 

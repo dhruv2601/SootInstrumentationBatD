@@ -56,8 +56,6 @@ public class AndroidInstrument {
         final List<String> provider = new ArrayList<String>();
 
 
-
-
         Options.v().set_src_prec(Options.src_prec_apk);
 
         // output as APK, too//-f J
@@ -96,10 +94,13 @@ public class AndroidInstrument {
 
                             if(invokeExpr.getMethod().getName().equals("startForeground"))
                             {
+                                provider.add(Scene.v().getActiveHierarchy().toString()+"    ");
                                 provider.add("startForeground");
                             }
+
                             if(invokeExpr.getMethod().getName().equals("startService"))
                             {
+                                provider.add(Scene.v().getActiveHierarchy().toString()+"    ");
                                 provider.add("startService");
                             }
 

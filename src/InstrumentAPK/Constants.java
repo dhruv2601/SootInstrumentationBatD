@@ -11,7 +11,9 @@ class Constants {
 //    public static final String APK_NAME = "com.MobileNumberTracker.GPS.Tracking.GPSnavigation.MAPS.Location.Tracker.apk";
 //    public final static String APK_NAME = "locationshare.apk";
 //    public final static String APK_NAME = "MapDisplay.apk";
-    public final static String APK_NAME = "app-debug.apk";
+//    public final static String APK_NAME = "app-debug.apk";
+//    public final static String APK_NAME = "com.okcupid.okcupid.apk";
+    public final static String APK_NAME = "com.forniteapp.emotes.apk";
 
     //    public static final String APK_NAME = "com.PYOPYO.StarTracker.apk";
     //    public static final String APK_NAME = "com.waze.apk";
