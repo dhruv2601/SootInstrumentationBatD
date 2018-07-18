@@ -1,5 +1,6 @@
 package InstrumentAPK;
 
+import org.apache.commons.lang3.ArrayUtils;
 import soot.*;
 import soot.jimple.AbstractStmtSwitch;
 import soot.jimple.InvokeExpr;
@@ -10,6 +11,7 @@ import soot.options.Options;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,8 +23,18 @@ public class AndroidInstrument {
     private static int numSS=0;
     private static int numSFS=0;
     private static int numSF=0;
+    private static String serialNum = "";
+    private static String temp = "jtp.myInstrumenter";
+    private static String jtpInstrumenter;
 
     public static int[] main(String[] args) {
+
+        soot.G.reset();
+
+        serialNum = args[0];
+        args = ArrayUtils.removeElement(args, 0);
+        System.out.println(args[0]);
+        jtpInstrumenter = temp+serialNum;
 
 //        String apkFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk";
 //
@@ -52,7 +64,7 @@ public class AndroidInstrument {
         Scene.v().addBasicClass("java.io.PrintStream",SootClass.SIGNATURES);
         Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
 
-        PackManager.v().getPack("jtp").add(new Transform("jtp.myInstrumenter", new BodyTransformer() {
+        PackManager.v().getPack("jtp").add(new Transform(jtpInstrumenter, new BodyTransformer() {
 
             @Override
             protected void internalTransform(final Body b, String phaseName, @SuppressWarnings("rawtypes") Map options) {
@@ -108,7 +120,10 @@ public class AndroidInstrument {
                 Constants.APK_DIR+Constants.APK_NAME
         };
 //        soot.Main.main(sootArgs);
-
+//        if(Options.v().time())
+//        {
+//            Timers.v().readTimer.end();
+//        }
         soot.Main.main(args);
 
         String locationProvider = String.join(" ; ", provider);

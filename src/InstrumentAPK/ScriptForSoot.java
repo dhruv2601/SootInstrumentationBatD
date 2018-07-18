@@ -2,10 +2,8 @@ package InstrumentAPK;
 
 import com.opencsv.CSVReader;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class ScriptForSoot {
 
@@ -95,6 +93,7 @@ public class ScriptForSoot {
                 System.out.println(APK_DIR);
 
                 String sootArgs[] = new String[]{
+                        String.valueOf(serialNum),
                         "-process-multiple-dex",
                         "-android-jars",
                         Constants.ANDROID_JAR,
@@ -109,37 +108,74 @@ public class ScriptForSoot {
                 totalForegServices = numSF;
                 totalBackgServices = totalNumServices - totalForegServices;
 
-                FileWriter thunderWriter = null;
+//                FileWriter thunderWriter = null;
 
-                thunderWriter = new FileWriter(THUNDER_OUTPUT);
+//                thunderWriter = new FileWriter(THUNDER_OUTPUT);
 
-                thunderWriter.append(serialNum);
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(category);
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(packageName);
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(targetSDK);
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(minSDK);
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(String.valueOf(totalForegServices));
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(String.valueOf(totalBackgServices));
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(String.valueOf(numSS));
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(String.valueOf(numSF));
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(String.valueOf(numSFS));
-                thunderWriter.append(TAB_DELIMITER);
-                thunderWriter.append(String.valueOf(totalNumServices));
-                thunderWriter.append(NEW_LINE_SEPERATOR);
+                try(BufferedWriter thunderWriter = new BufferedWriter(new FileWriter(THUNDER_OUTPUT, true)))
+                {
+                    thunderWriter.write(String.valueOf(serialNum));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(category));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(packageName));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(targetSDK));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(minSDK));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(totalForegServices));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf((totalBackgServices)));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(numSS));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf((numSF)));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(numSFS));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(totalNumServices));
+                    thunderWriter.write(NEW_LINE_SEPERATOR);
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
 
-                thunderWriter.flush();
-                thunderWriter.close();
+//
+//                thunderWriter.append(serialNum);
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(category);
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(packageName);
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(targetSDK);
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(minSDK);
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(String.valueOf(totalForegServices));
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(String.valueOf(totalBackgServices));
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(String.valueOf(numSS));
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(String.valueOf(numSF));
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(String.valueOf(numSFS));
+//                thunderWriter.append(TAB_DELIMITER);
+//                thunderWriter.append(String.valueOf(totalNumServices));
+//                thunderWriter.append(NEW_LINE_SEPERATOR);
+//
+//                thunderWriter.flush();
+//                thunderWriter.close();
 
                 testCounter++;
+                
+                try {
+                    TimeUnit.SECONDS.sleep(40);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (IOException e) {
@@ -147,5 +183,4 @@ public class ScriptForSoot {
         }
 
     }
-
 }
