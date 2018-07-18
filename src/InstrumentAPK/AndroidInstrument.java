@@ -15,27 +15,27 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
 public class AndroidInstrument {
 
     private static final String RESULTFILE = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/result/outputFile.txt";
+    private static int numSS=0;
+    private static int numSFS=0;
+    private static int numSF=0;
 
-    public static void main(String[] args) {
+    public static int[] main(String[] args) {
 
+//        String apkFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk";
+//
+//        printFile(RESULTFILE,apkFile+"\n");
 
-        String apkFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk";
-
-        printFile(RESULTFILE,apkFile+"\n");
-
-        String title = "Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request";
-        printFile(RESULTFILE,title);
+//        String title = "Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request";
+//        printFile(RESULTFILE,title);
 
         final List<String> locationRequest = new ArrayList<String>();
         final List<String> locationInterval = new ArrayList<String>();
         final List<String> locationPriority = new ArrayList<String>();
         final List<String> locationDistance = new ArrayList<String>();
         final List<String> provider = new ArrayList<String>();
-
 
         Options.v().set_src_prec(Options.src_prec_apk);
 
@@ -57,7 +57,7 @@ public class AndroidInstrument {
             @Override
             protected void internalTransform(final Body b, String phaseName, @SuppressWarnings("rawtypes") Map options) {
                 final PatchingChain<Unit> units = b.getUnits();
-//                System.out.println("internalTransform11111 is here!!");
+//                System.out.println("internalTransform");
 
                 //important to use snapshotIterator here
                 for(Iterator<Unit> iter = units.snapshotIterator(); iter.hasNext();) {
@@ -70,40 +70,46 @@ public class AndroidInstrument {
 
                             if(invokeExpr.getMethod().getName().equals("startForegroundService"))
                             {
-                                provider.add("startForegroundService");
+                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+                                {
+                                    provider.add("startForegroundService");
+                                    numSFS++;
+                                }
                             }
 
                             if(invokeExpr.getMethod().getName().equals("startForeground"))
                             {
-                                provider.add(Scene.v().getActiveHierarchy().toString()+"    ");
-                                provider.add("startForeground");
+                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+                                {
+                                    provider.add("startForeground");
+                                    numSF++;
+                                }
                             }
 
-                            if(invokeExpr.getMethod().getName().equals("startService"))
+                            if(invokeExpr.getMethod().getName().equals("startService")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
                             {
-                                provider.add(Scene.v().getActiveHierarchy().toString()+"    ");
-                                provider.add("startService");
+                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context"))
+                                {
+                                    provider.add("startService");
+                                    numSS++;
+                                }
                             }
                         }
-
                     });
                 }
             }
-
-
         }));
 
         String[] sootArgs = new String[]{
+                "-process-multiple-dex",
                 "-android-jars",
                 Constants.ANDROID_JAR,
                 "-process-dir",
                 Constants.APK_DIR+Constants.APK_NAME
-//                "-d",
-//                Constants.OUTPUT_DIR
-//                "-force-android-jar",
-//                Constants.ANDROID_JAR + "android-25/android.jar"
         };
-        soot.Main.main(sootArgs);
+//        soot.Main.main(sootArgs);
+
+        soot.Main.main(args);
 
         String locationProvider = String.join(" ; ", provider);
         String locationRequestString = String.join(" ; ", locationRequest);
@@ -111,16 +117,21 @@ public class AndroidInstrument {
         String locationPriorityString = String.join(" ; ", locationPriority);
         String locationDistanceString = String.join(" ; ", locationDistance);
         String locationResult = "\n" + locationProvider + "	|	" + locationIntervalString + "	|	" + locationPriorityString + "	|	" + locationDistanceString + "	|	" + locationRequestString +"\n";
-        printFile(RESULTFILE, locationResult + "\n\n");
+//        printFile(RESULTFILE, locationResult +"\n"+String.valueOf(numSF)+" "+String.valueOf(numSFS)+" "+String.valueOf(numSS)+"\n\n");
+        System.out.println(String.valueOf(numSF)+" "+String.valueOf(numSFS)+" "+String.valueOf(numSS)+"\n");
+
+        int arr[] = new int[3];
+        arr[0] = numSS;
+        arr[1] = numSF;
+        arr[2] = numSFS;
+        return arr;
     }
 
     public static void printFile(String fileName, String content){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,true))) {
             bw.write(content);
         } catch (IOException e) {
-
             e.printStackTrace();
-
         }
     }
 

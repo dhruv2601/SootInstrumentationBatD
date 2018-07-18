@@ -1,5 +1,4 @@
-	category	 package 	 min_sdk 	 targ_sdk 	 #Services 
-0	ANDROID_WEAR	ch.publisheria.bring	27	16	18
+﻿0	ANDROID_WEAR	ch.publisheria.bring	27	16	18
 1	ANDROID_WEAR	com.aa.android	26	21	30
 2	ANDROID_WEAR	com.acmeaom.android.myradar	26	15	15
 3	ANDROID_WEAR	com.adhoclabs.burner	25	16	20

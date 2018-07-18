@@ -14,6 +14,9 @@ class Constants {
 //    public final static String APK_NAME = "app-debug.apk";
 //    public final static String APK_NAME = "com.okcupid.okcupid.apk";
     public final static String APK_NAME = "com.forniteapp.emotes.apk";
+//    public final static String APK_NAME = "ch.publisheria.bring.apk";
+
+//    public final static String APK_NAME = "com.apps.wallpaperhd.power.rangers.apk";
 
     //    public static final String APK_NAME = "com.PYOPYO.StarTracker.apk";
     //    public static final String APK_NAME = "com.waze.apk";
