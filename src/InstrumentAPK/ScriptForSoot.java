@@ -33,10 +33,10 @@ public class ScriptForSoot {
 
             while((line = reader.readNext())!=null)
             {
-                if(testCounter==3)
-                {
-                    break;
-                }
+//                if(testCounter==3)
+//                {
+//                    break;
+//                }
 
                 int tabCounter = 0;
                 StringBuilder serialNum = new StringBuilder();
@@ -102,8 +102,17 @@ public class ScriptForSoot {
                 };
 
                 int arr[] = new int[3];
-                arr = AndroidInstrument.main(sootArgs);
-                numSS = arr[0]; numSF = arr[1]; numSFS = arr[2];
+                try
+                {
+                    arr = AndroidInstrument.main(sootArgs);
+                    numSS = arr[0]; numSF = arr[1]; numSFS = arr[2];
+                }
+                catch (RuntimeException e)
+                {
+                    System.out.println("This APK was not able to be processed -  "+e.getMessage().toString());
+                    numSS = 0; numSF = 0; numSFS = 0;
+                }
+
                 totalNumServices = Integer.parseInt(String.valueOf(numService));
                 totalForegServices = numSF;
                 totalBackgServices = totalNumServices - totalForegServices;
@@ -170,7 +179,7 @@ public class ScriptForSoot {
 //                thunderWriter.close();
 
                 testCounter++;
-                
+
                 try {
                     TimeUnit.SECONDS.sleep(40);
                 } catch (InterruptedException e) {

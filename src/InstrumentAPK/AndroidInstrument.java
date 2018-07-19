@@ -119,12 +119,25 @@ public class AndroidInstrument {
                 "-process-dir",
                 Constants.APK_DIR+Constants.APK_NAME
         };
+
 //        soot.Main.main(sootArgs);
 //        if(Options.v().time())
 //        {
 //            Timers.v().readTimer.end();
 //        }
-        soot.Main.main(args);
+
+        try {
+            soot.Main.main(args);
+        }
+        catch (RuntimeException e)
+        {
+            System.out.println("This APK was not able to be processed -  "+e.getMessage().toString());
+            int arr[] = new int[3];
+            arr[0] = numSS;
+            arr[1] = numSF;
+            arr[2] = numSFS;
+            return arr;
+        }
 
         String locationProvider = String.join(" ; ", provider);
         String locationRequestString = String.join(" ; ", locationRequest);

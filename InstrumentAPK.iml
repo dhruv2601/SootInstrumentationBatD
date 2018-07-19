@@ -10,5 +10,7 @@
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="library" name="opencsv-4.2" level="project" />
     <orderEntry type="library" name="commons-lang3-3" level="project" />
+    <orderEntry type="library" name="sootclasses-trunk" level="project" />
+    <orderEntry type="library" name="sootclasses-trunk-sources" level="project" />
   </component>
 </module>
