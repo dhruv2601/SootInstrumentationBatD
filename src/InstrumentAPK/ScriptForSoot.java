@@ -33,6 +33,7 @@ public class ScriptForSoot {
 
             while((line = reader.readNext())!=null)
             {
+                numSS=0; numSFS = 0; numSF = 0;
 //                if(testCounter==3)
 //                {
 //                    break;

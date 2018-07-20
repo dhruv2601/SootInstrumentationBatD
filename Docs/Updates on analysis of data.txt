@@ -1,0 +1,23 @@
+startForeground is ok
+startForegroundService and startService is adding +1 somehow but legitly as tested
+
+
+update:
+
+/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk
+Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request
+startForegroundService ; startService ; startService ; startForegroundService ; startService ; startService ; startService ; startService ; startService ; startService	|		|		|		|	 
+// imploes one startForeground only, ek extra rheta hai hamesha
+// same with startService -> not confirmed though
+
+Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request
+startService	|		|		|		|	
+
+with an APK with 0 service, this proves that startService is outputting one additional output and the rest are fine.
+
+
+Just took 41 minutes to analyze Google maps hahahaha
+
+UPDATE:
+
+So lol happened to me just now when I realized that the the 3 elements numSS, numSFS and numSF were never initialized to zero, aur jab tak koi error nhi aata their values keeps adding apni pehle vali values mn, tho baat yu hai ki till the index 340 in the ThunderOuput, subtract the no. algo for each interruption in serial no. and that will do the trick.

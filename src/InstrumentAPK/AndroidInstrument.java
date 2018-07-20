@@ -31,6 +31,8 @@ public class AndroidInstrument {
 
         soot.G.reset();
 
+        numSS=0; numSFS = 0; numSF = 0;
+
         serialNum = args[0];
         args = ArrayUtils.removeElement(args, 0);
         System.out.println(args[0]);
@@ -139,13 +141,6 @@ public class AndroidInstrument {
             return arr;
         }
 
-        String locationProvider = String.join(" ; ", provider);
-        String locationRequestString = String.join(" ; ", locationRequest);
-        String locationIntervalString = String.join(" ; ", locationInterval);
-        String locationPriorityString = String.join(" ; ", locationPriority);
-        String locationDistanceString = String.join(" ; ", locationDistance);
-        String locationResult = "\n" + locationProvider + "	|	" + locationIntervalString + "	|	" + locationPriorityString + "	|	" + locationDistanceString + "	|	" + locationRequestString +"\n";
-//        printFile(RESULTFILE, locationResult +"\n"+String.valueOf(numSF)+" "+String.valueOf(numSFS)+" "+String.valueOf(numSS)+"\n\n");
         System.out.println(String.valueOf(numSF)+" "+String.valueOf(numSFS)+" "+String.valueOf(numSS)+"\n");
 
         int arr[] = new int[3];
