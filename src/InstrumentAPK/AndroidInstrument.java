@@ -20,9 +20,9 @@ import java.util.Map;
 public class AndroidInstrument {
 
     private static final String RESULTFILE = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/result/outputFile.txt";
-    private static int numSS=0;
-    private static int numSFS=0;
-    private static int numSF=0;
+    private static int numSS = 0;
+    private static int numSFS = 0;
+    private static int numSF = 0;
     private static String serialNum = "";
     private static String temp = "jtp.myInstrumenter";
     private static String jtpInstrumenter;
@@ -31,12 +31,14 @@ public class AndroidInstrument {
 
         soot.G.reset();
 
-        numSS=0; numSFS = 0; numSF = 0;
+        numSS = 0;
+        numSFS = 0;
+        numSF = 0;
 
         serialNum = args[0];
         args = ArrayUtils.removeElement(args, 0);
         System.out.println(args[0]);
-        jtpInstrumenter = temp+serialNum;
+        jtpInstrumenter = temp + serialNum;
 
 //        String apkFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk";
 //
@@ -54,7 +56,7 @@ public class AndroidInstrument {
         Options.v().set_src_prec(Options.src_prec_apk);
 
         // output as APK, too//-f J
-        Options.v().set_output_format(Options.output_format_none);
+        Options.v().set_output_format(Options.output_format_jimple);
         // Options.v().set_output_format(Options.output_format_jimple);
 
         // Borrowed from CallTracer.
@@ -63,8 +65,8 @@ public class AndroidInstrument {
 
 
         // resolve the PrintStream and System soot-classes
-        Scene.v().addBasicClass("java.io.PrintStream",SootClass.SIGNATURES);
-        Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.io.PrintStream", SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.System", SootClass.SIGNATURES);
 
         PackManager.v().getPack("jtp").add(new Transform(jtpInstrumenter, new BodyTransformer() {
 
@@ -74,7 +76,7 @@ public class AndroidInstrument {
 //                System.out.println("internalTransform");
 
                 //important to use snapshotIterator here
-                for(Iterator<Unit> iter = units.snapshotIterator(); iter.hasNext();) {
+                for (Iterator<Unit> iter = units.snapshotIterator(); iter.hasNext(); ) {
                     final Unit u = iter.next();
                     u.apply(new AbstractStmtSwitch() {
 
@@ -82,28 +84,23 @@ public class AndroidInstrument {
 
                             InvokeExpr invokeExpr = stmt.getInvokeExpr();
 
-                            if(invokeExpr.getMethod().getName().equals("startForegroundService"))
-                            {
-                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+                            if (invokeExpr.getMethod().getName().equals("startForegroundService")) {
+//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
                                 {
                                     provider.add("startForegroundService");
                                     numSFS++;
                                 }
                             }
 
-                            if(invokeExpr.getMethod().getName().equals("startForeground"))
-                            {
-                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
-                                {
+                            if (invokeExpr.getMethod().getName().equals("startForeground")) {
+                                if (invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context") || invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")) {
                                     provider.add("startForeground");
                                     numSF++;
                                 }
                             }
 
-                            if(invokeExpr.getMethod().getName().equals("startService")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
-                            {
-                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context"))
-                                {
+                            if (invokeExpr.getMethod().getName().equals("startService") || invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")) {
+                                if (invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")) {
                                     provider.add("startService");
                                     numSS++;
                                 }
@@ -118,22 +115,16 @@ public class AndroidInstrument {
                 "-process-multiple-dex",
                 "-android-jars",
                 Constants.ANDROID_JAR,
+                "-d",
+                "/media/dhruv2601/Carseat/sootOutput/",
                 "-process-dir",
-                Constants.APK_DIR+Constants.APK_NAME
+                Constants.APK_DIR + Constants.APK_NAME
         };
-
-//        soot.Main.main(sootArgs);
-//        if(Options.v().time())
-//        {
-//            Timers.v().readTimer.end();
-//        }
 
         try {
             soot.Main.main(args);
-        }
-        catch (RuntimeException e)
-        {
-            System.out.println("This APK was not able to be processed -  "+e.getMessage().toString());
+        } catch (RuntimeException e) {
+            System.out.println("This APK was not able to be processed -  " + e.getMessage().toString());
             int arr[] = new int[3];
             arr[0] = numSS;
             arr[1] = numSF;
@@ -141,7 +132,7 @@ public class AndroidInstrument {
             return arr;
         }
 
-        System.out.println(String.valueOf(numSF)+" "+String.valueOf(numSFS)+" "+String.valueOf(numSS)+"\n");
+        System.out.println(String.valueOf(numSF) + " " + String.valueOf(numSFS) + " " + String.valueOf(numSS) + "\n");
 
         int arr[] = new int[3];
         arr[0] = numSS;
@@ -150,23 +141,21 @@ public class AndroidInstrument {
         return arr;
     }
 
-    public static void printFile(String fileName, String content){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,true))) {
+    public static void printFile(String fileName, String content) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
             bw.write(content);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static Local addTmpRef(Body body)
-    {
+    private static Local addTmpRef(Body body) {
         Local tmpRef = Jimple.v().newLocal("tmpRef", RefType.v("java.io.PrintStream"));
         body.getLocals().add(tmpRef);
         return tmpRef;
     }
 
-    private static Local addTmpString(Body body)
-    {
+    private static Local addTmpString(Body body) {
         Local tmpString = Jimple.v().newLocal("tmpString", RefType.v("java.lang.String"));
         body.getLocals().add(tmpString);
         return tmpString;

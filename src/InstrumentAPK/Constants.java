@@ -10,32 +10,57 @@ class Constants {
 
 //    public static final String APK_NAME = "com.MobileNumberTracker.GPS.Tracking.GPSnavigation.MAPS.Location.Tracker.apk";
 //    public final static String APK_NAME = "locationshare.apk";
-//    public final static String APK_NAME = "MapDisplay.apk";
+    public final static String APK_NAME = "MapDisplay.apk";
 //    public final static String APK_NAME = "app-debug.apk";
 //    public final static String APK_NAME = "com.okcupid.okcupid.apk";
-    public final static String APK_NAME = "com.forniteapp.emotes.apk";
+//    public final static String APK_NAME = "com.forniteapp.emotes.apk";
+//    public final static String APK_NAME = "LocationTeseterDhruv.apk";
+
 //    public final static String APK_NAME = "ch.publisheria.bring.apk";
 
 //    public final static String APK_NAME = "com.apps.wallpaperhd.power.rangers.apk";
 
-    //    public static final String APK_NAME = "com.PYOPYO.StarTracker.apk";
-    //    public static final String APK_NAME = "com.waze.apk";
-//    public static final String APK_NAME = "com.application.zomato";
-//    public static final String APK_NAME = "com.appmind.radios.ca";
-//    public static final String APK_NAME = "com.atlogis.camaps.free-48";
-//    public static final String APK_NAME = "com.digitalhud.speedometer";
-//    public static final String APK_NAME = "com.droid27.transparentclockweather";
-//    public static final String APK_NAME = "com.exovoid.weather.app";
-//    public static final String APK_NAME = "com.favequest.mea.cmos_congress";
-//    public static final String APK_NAME = "com.fotoable.temperature.weather";
-//    public static final String APK_NAME = "com.isrtransit.stm";
-//    public static final String APK_NAME = "com.mcdonalds.superapp";
-//    public static final String APK_NAME = "com.morkim.thunder.gps";
-//    public static final String APK_NAME = "com.passportparking.mobile.toronto";
-//    public static final String APK_NAME = "com.sygic.aura";
-//    public static final String APK_NAME = "com.tripadvisor.tripadvisor-170515015";
-//    public static final String APK_NAME = "cz.aponia.bor3.offlinemaps";
-//    public static final String APK_NAME = "me.lyft.android";
-//    public static final String APK_NAME = "org.mrchops.android.digihud";
 
+    final static String[] GPSMethodList = new String []{
+        "requestLocationUpdates",
+            "getLastKnownLocation",
+            "getGpsStatus",
+            "isLocationEnabled",
+            "isProviderEnabled",
+            "requestSingleUpdate",
+            "getFromLocation",
+            "getFromLocationName",
+            "getLastLocation",
+            "getLocationAvailability",
+            "removeLocationUpdates",
+            "requestLocationUpdates",
+            "setMockLocation",
+            "setMockMode",
+            "flushLocations",
+            "getLastLocation",
+            "getLocationAvailability",
+            "removeLocationUpdates",
+            "requestLocationUpdates",
+            "setMockMode",
+            "addGeofences",
+            "extractLocationAvailability",
+            "hasLocationAvailability",
+            "isLocationAvailable",
+            "onLocationResult",
+            "onLocationAvailability",
+            "onLocationChanged",
+            "getExpirationTime",
+            "getFastestInterval",
+            "setExpirationDuration",
+            "setInterval",
+            "setFastestInterval",
+            "setMaxWaitTime",
+            "setPriority",
+            "getLastLocation",
+            "getLocations",
+            "getFusedLocationProviderClient",
+            "getGeofencingClient",
+            "getSettingsClient",
+            "checkLocationSettings"
+    };
 }

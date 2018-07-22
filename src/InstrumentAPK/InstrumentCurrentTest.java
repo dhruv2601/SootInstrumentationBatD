@@ -5,6 +5,7 @@ import soot.jimple.AbstractStmtSwitch;
 import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.jimple.Jimple;
+import soot.jimple.infoflow.android.manifest.ProcessManifest;
 import soot.options.Options;
 
 import java.io.BufferedWriter;
@@ -24,13 +25,6 @@ public class InstrumentCurrentTest {
 
     public static void main(String[] args) {
 
-//        String apkFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/APK/locationshare.apk";
-//
-//        printFile(RESULTFILE,apkFile+"\n");
-
-//        String title = "Location API	|	Request Interval	|	Priority	|	Distance	|	Complete Location Request";
-//        printFile(RESULTFILE,title);
-
         final List<String> locationRequest = new ArrayList<String>();
         final List<String> locationInterval = new ArrayList<String>();
         final List<String> locationPriority = new ArrayList<String>();
@@ -39,16 +33,10 @@ public class InstrumentCurrentTest {
 
         Options.v().set_src_prec(Options.src_prec_apk);
 
-        // output as APK, too//-f J
-        Options.v().set_output_format(Options.output_format_none);
-        // Options.v().set_output_format(Options.output_format_jimple);
-
-        // Borrowed from CallTracer.
+        Options.v().set_output_format(Options.output_format_jimple);
         Options.v().set_allow_phantom_refs(true);
         Options.v().set_whole_program(true);
 
-
-        // resolve the PrintStream and System soot-classes
         Scene.v().addBasicClass("java.io.PrintStream",SootClass.SIGNATURES);
         Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
 
@@ -57,7 +45,6 @@ public class InstrumentCurrentTest {
             @Override
             protected void internalTransform(final Body b, String phaseName, @SuppressWarnings("rawtypes") Map options) {
                 final PatchingChain<Unit> units = b.getUnits();
-//                System.out.println("internalTransform11111 is here!!");
 
                 //important to use snapshotIterator here
                 for(Iterator<Unit> iter = units.snapshotIterator(); iter.hasNext();) {
@@ -70,7 +57,7 @@ public class InstrumentCurrentTest {
 
                             if(invokeExpr.getMethod().getName().equals("startForegroundService"))
                             {
-                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Notification"))
                                 {
                                     provider.add("startForegroundService");
                                     numSFS++;

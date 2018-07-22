@@ -3,6 +3,7 @@ package InstrumentAPK;
 import com.opencsv.CSVReader;
 
 import java.io.*;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class ScriptForSoot {
@@ -13,17 +14,22 @@ public class ScriptForSoot {
     private static int totalNumServices;    //total no. of services
     private static int totalBackgServices;  //total no. of background services
     private static int totalForegServices;  //total no. of foreground services
+    private static int isGPSCalledViaForeground = 0; // if the GPS is called via a foreground service in whole of the app
 
     private static final String TAB_DELIMITER = "\t";
     private static final String NEW_LINE_SEPERATOR = "\n";
 
     private static final String THUNDER_OUTPUT = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/result/ThunderOutput.csv";
+    private static final String OUTPUT_SOOT_DIR = "/media/dhruv2601/Carseat/sootOutput/";
+
+    private static int foregroundMention =0;
+    private static int GPSMention = 0;
 
     public static void main(String[] args)
     {
         int testCounter = 0;
         String csvFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/refData.csv";
-        String OUTER_DIR = "/media/dhruv2601/Carseat/TopFreeAppsDataSet/";   //is appended to APK path later
+        String OUTER_DIR = "/media/dhruv2601/Carseat/TopFreeAppsDataSet/";   // is appended to APK path later
 
         CSVReader reader = null;
 
@@ -34,10 +40,10 @@ public class ScriptForSoot {
             while((line = reader.readNext())!=null)
             {
                 numSS=0; numSFS = 0; numSF = 0;
-//                if(testCounter==3)
-//                {
-//                    break;
-//                }
+                if(testCounter==1)
+                {
+                    break;
+                }
 
                 int tabCounter = 0;
                 StringBuilder serialNum = new StringBuilder();
@@ -48,7 +54,6 @@ public class ScriptForSoot {
                 StringBuilder numService = new StringBuilder();
 
 
-//                System.out.println("Output = "+line[0]);
                 System.out.println("\n");
                 String s = line[0];
                 StringBuilder temp = new StringBuilder();
@@ -98,6 +103,8 @@ public class ScriptForSoot {
                         "-process-multiple-dex",
                         "-android-jars",
                         Constants.ANDROID_JAR,
+                        "-d",
+                        "/media/dhruv2601/Carseat/sootOutput/",
                         "-process-dir",
                         APK_DIR
                 };
@@ -110,7 +117,7 @@ public class ScriptForSoot {
                 }
                 catch (RuntimeException e)
                 {
-                    System.out.println("This APK was not able to be processed -  "+e.getMessage().toString());
+                    System.out.println("This APK was not able to be processed -  "+ e.getMessage());
                     numSS = 0; numSF = 0; numSFS = 0;
                 }
 
@@ -118,9 +125,59 @@ public class ScriptForSoot {
                 totalForegServices = numSF;
                 totalBackgServices = totalNumServices - totalForegServices;
 
-//                FileWriter thunderWriter = null;
+                // -- starting with file crawling
 
-//                thunderWriter = new FileWriter(THUNDER_OUTPUT);
+                File folder = new File(OUTPUT_SOOT_DIR);
+                File[] listOfFiles = folder.listFiles();
+
+                if (listOfFiles != null) {
+                    System.out.println("no. of files to crawl:  "+listOfFiles.length);
+                    for(int i=0;i<listOfFiles.length;i++)
+                    {
+                        foregroundMention = 0; GPSMention = 0; isGPSCalledViaForeground = 0;
+                        int flag = 0;
+                        if(listOfFiles[i].isFile())
+                        {
+                            File jimpleFile = listOfFiles[i];
+                            Scanner scanner = new Scanner(jimpleFile);
+                            while(scanner.hasNext()){
+                                String jLine = scanner.nextLine();
+                                for(int j=0;j<Constants.GPSMethodList.length;j++)
+                                {
+                                    if(jLine.contains(Constants.GPSMethodList[j]))
+                                    {
+                                        GPSMention = 1;
+                                    }
+                                    if(jLine.contains("startForeground"))
+                                    {
+                                        foregroundMention = 1;
+                                    }
+                                    if(GPSMention == 1 && foregroundMention == 1)
+                                    {
+                                        // add 1 to the csv ke column mein  and break   and flag=1
+                                        isGPSCalledViaForeground = 1;
+                                        flag = 1;
+                                        break;
+                                    }
+                                }
+                                if(flag==1)
+                                {
+                                    break;      // to exit while and this APK altogether
+                                }
+                            }
+                        }
+
+                        if(flag==0)
+                        {
+                            if(GPSMention == 0 && foregroundMention == 0)
+                            {
+                                isGPSCalledViaForeground = 0;
+                            }
+                        }
+                    }
+                }
+
+                // -- ending file calling, proceed to write
 
                 try(BufferedWriter thunderWriter = new BufferedWriter(new FileWriter(THUNDER_OUTPUT, true)))
                 {
@@ -145,6 +202,8 @@ public class ScriptForSoot {
                     thunderWriter.write(String.valueOf(numSFS));
                     thunderWriter.write(TAB_DELIMITER);
                     thunderWriter.write(String.valueOf(totalNumServices));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(isGPSCalledViaForeground));
                     thunderWriter.write(NEW_LINE_SEPERATOR);
                 }
                 catch (IOException e)
@@ -152,34 +211,11 @@ public class ScriptForSoot {
                     e.printStackTrace();
                 }
 
-//
-//                thunderWriter.append(serialNum);
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(category);
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(packageName);
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(targetSDK);
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(minSDK);
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(String.valueOf(totalForegServices));
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(String.valueOf(totalBackgServices));
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(String.valueOf(numSS));
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(String.valueOf(numSF));
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(String.valueOf(numSFS));
-//                thunderWriter.append(TAB_DELIMITER);
-//                thunderWriter.append(String.valueOf(totalNumServices));
-//                thunderWriter.append(NEW_LINE_SEPERATOR);
-//
-//                thunderWriter.flush();
-//                thunderWriter.close();
-
                 testCounter++;
+
+                // -- deleting the soot output folder, i.e., jimple files
+                File sootOutputFolder = new File(OUTPUT_SOOT_DIR);
+                deleteFolder(sootOutputFolder);
 
                 try {
                     TimeUnit.SECONDS.sleep(40);
@@ -192,5 +228,19 @@ public class ScriptForSoot {
             e.printStackTrace();
         }
 
+    }
+
+    public static void deleteFolder(File folder) {
+        File[] files = folder.listFiles();
+        if(files!=null) { //some JVMs return null for empty dirs
+            for(File f: files) {
+                if(f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+        folder.delete();
     }
 }
