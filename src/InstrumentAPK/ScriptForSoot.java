@@ -40,10 +40,10 @@ public class ScriptForSoot {
             while((line = reader.readNext())!=null)
             {
                 numSS=0; numSFS = 0; numSF = 0;
-                if(testCounter==1)
-                {
-                    break;
-                }
+//                if(testCounter==1)
+//                {
+//                    break;
+//                }
 
                 int tabCounter = 0;
                 StringBuilder serialNum = new StringBuilder();
@@ -140,8 +140,19 @@ public class ScriptForSoot {
                         {
                             File jimpleFile = listOfFiles[i];
                             Scanner scanner = new Scanner(jimpleFile);
-                            while(scanner.hasNext()){
-                                String jLine = scanner.nextLine();
+
+                            String fileName = listOfFiles[i].getAbsolutePath();
+                            FileReader fileReader = new FileReader(fileName);
+                            String jLine = null;
+                            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                            while((jLine = bufferedReader.readLine())!=null)
+                            {
+
+//                            }
+
+//                            while(scanner.hasNext()){
+//                                String jLine = scanner.nextLine();
                                 for(int j=0;j<Constants.GPSMethodList.length;j++)
                                 {
                                     if(jLine.contains(Constants.GPSMethodList[j]))
@@ -154,6 +165,7 @@ public class ScriptForSoot {
                                     }
                                     if(GPSMention == 1 && foregroundMention == 1)
                                     {
+                                        System.out.println("FLAG = 1");
                                         // add 1 to the csv ke column mein  and break   and flag=1
                                         isGPSCalledViaForeground = 1;
                                         flag = 1;
@@ -165,6 +177,7 @@ public class ScriptForSoot {
                                     break;      // to exit while and this APK altogether
                                 }
                             }
+                            bufferedReader.close();
                         }
 
                         if(flag==0)
@@ -173,6 +186,12 @@ public class ScriptForSoot {
                             {
                                 isGPSCalledViaForeground = 0;
                             }
+                        }
+
+                        if(flag == 1)
+                        {
+                            isGPSCalledViaForeground = 1;
+                            break;
                         }
                     }
                 }
@@ -227,7 +246,6 @@ public class ScriptForSoot {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void deleteFolder(File folder) {
