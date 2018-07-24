@@ -87,21 +87,21 @@ public class AndroidInstrument {
                             if (invokeExpr.getMethod().getName().equals("startForegroundService")) {
 //                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
                                 {
-                                    provider.add("startForegroundService");
+//                                    provider.add("startForegroundService");
                                     numSFS++;
                                 }
                             }
 
                             if (invokeExpr.getMethod().getName().equals("startForeground")) {
                                 if (invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context") || invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")) {
-                                    provider.add("startForeground");
+//                                    provider.add("startForeground");
                                     numSF++;
                                 }
                             }
 
                             if (invokeExpr.getMethod().getName().equals("startService") || invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")) {
                                 if (invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")) {
-                                    provider.add("startService");
+//                                    provider.add("startService");
                                     numSS++;
                                 }
                             }
@@ -111,20 +111,20 @@ public class AndroidInstrument {
             }
         }));
 
-        String[] sootArgs = new String[]{
-                "-process-multiple-dex",
-                "-android-jars",
-                Constants.ANDROID_JAR,
-                "-d",
-                "/media/dhruv2601/Carseat/sootOutput/",
-                "-process-dir",
-                Constants.APK_DIR + Constants.APK_NAME
-        };
+//        String[] sootArgs = new String[]{
+//                "-process-multiple-dex",
+//                "-android-jars",
+//                Constants.ANDROID_JAR,
+//                "-d",
+//                "/media/dhruv2601/Carseat/sootOutput/",
+//                "-process-dir",
+//                Constants.APK_DIR + Constants.APK_NAME
+//        };
 
         try {
             soot.Main.main(args);
         } catch (RuntimeException e) {
-            System.out.println("This APK was not able to be processed -  " + e.getMessage().toString());
+            System.out.println("This APK was not processed -  " + e.getMessage().toString());
             int arr[] = new int[3];
             arr[0] = numSS;
             arr[1] = numSF;
