@@ -1,15 +1,5 @@
 
-startForeground ; startForeground ; Class name android.content.Context ; startForegroundService ; startService ; Class name android.content.ContextWrapper ; startForegroundService ; Class name android.content.ContextWrapper ; startForegroundService ; Class name android.content.ContextWrapper ; startForegroundService	|		|		|		|	
+startForeground ; startForeground ; startForegroundService ; className:: android.content.Context false ; startService ; className:: android.content.ContextWrapper false ; className:: android.content.ContextWrapper false ; startForegroundService ; startForegroundService ; className:: android.content.ContextWrapper false ; className:: android.content.ContextWrapper false ; startForegroundService ; className:: android.content.ContextWrapper false	|		|		|		|	
 
 2 4 1
-
-
-startForeground ; startForeground ; startForegroundService ; startService ; startForegroundService ; startForegroundService ; startForegroundService	|		|		|		|	
-
-2 4 1
-
-
-startService ; startService ; startService ; startService ; startService ; startService ; startService ; startForeground ; startForeground ; startForeground ; startService ; startService ; startService ; startService ; startService ; startService ; startService ; startService	|		|		|		|	
-
-3 0 15
 

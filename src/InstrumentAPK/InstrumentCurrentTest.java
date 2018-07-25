@@ -55,31 +55,58 @@ public class InstrumentCurrentTest {
 
                             InvokeExpr invokeExpr = stmt.getInvokeExpr();
 
+//                            provider.add(invokeExpr.toString()+"\n");
+
                             if(invokeExpr.getMethod().getName().equals("startForegroundService"))
                             {
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Notification"))
+
+                                List<soot.Type> paramList = invokeExpr.getMethod().getParameterTypes();
+
+                                for(int j=0; j<paramList.size(); j++)
                                 {
-                                    provider.add("startForegroundService");
-                                    numSFS++;
+                                    if(paramList.get(j).toString().equals("android.content.Intent"))
+                                    {
+                                        numSFS++;
+                                        provider.add("startForegroundService");
+                                        break;
+                                    }
                                 }
+
                             }
 
                             if(invokeExpr.getMethod().getName().equals("startForeground"))
                             {
-                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+                                List<soot.Type> paramList = invokeExpr.getMethod().getParameterTypes();
+
+                                for(int j=0; j<paramList.size(); j++)
                                 {
-                                    provider.add("startForeground");
-                                    numSF++;
+                                    if(paramList.get(j).toString().equals("android.app.Notification"))
+                                    {
+                                        numSF++;
+                                        provider.add("startForeground");
+                                        break;
+                                    }
                                 }
                             }
 
-                            if(invokeExpr.getMethod().getName().equals("startService")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+                            if(invokeExpr.getMethod().getName().equals("startService"))
                             {
-                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context"))
+                                List<soot.Type> paramList = invokeExpr.getMethod().getParameterTypes();
+
+                                provider.add("className:: "+invokeExpr.getMethod().getDeclaringClass().getName() +
+                                        " " + invokeExpr.getMethod().isJavaLibraryMethod());
+                                for(int j=0; j<paramList.size(); j++)
                                 {
-                                    provider.add("startService");
-                                    numSS++;
+                                    if(paramList.get(j).toString().equals("android.content.Intent")
+                                            &&(invokeExpr.getMethod().getDeclaringClass().getName()
+                                            .equals("android.content.Context")))
+                                    {
+                                        numSS++;
+                                        provider.add("startService");
+                                        break;
+                                    }
                                 }
+
                             }
                         }
                     });

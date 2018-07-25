@@ -7,6 +7,7 @@ import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.jimple.Jimple;
 import soot.options.Options;
+import sun.rmi.runtime.Log;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -85,14 +86,35 @@ public class AndroidInstrument {
                             InvokeExpr invokeExpr = stmt.getInvokeExpr();
 
                             if (invokeExpr.getMethod().getName().equals("startForegroundService")) {
-//                                if(invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context")||invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service"))
+
+                                List<soot.Type> paramList = invokeExpr.getMethod().getParameterTypes();
+
+                                for(int j=0; j<paramList.size(); j++)
                                 {
-//                                    provider.add("startForegroundService");
-                                    numSFS++;
+//                                    provider.add(paramList.get(j).toString());
+                                    if(paramList.get(j).toString().equals("android.content.Intent"))
+                                    {
+                                        numSFS++;
+                                        break;
+                                    }
                                 }
                             }
 
                             if (invokeExpr.getMethod().getName().equals("startForeground")) {
+
+                                List<soot.Type> paramList = invokeExpr.getMethod().getParameterTypes();
+
+                                for(int j=0; j<paramList.size(); j++)
+                                {
+                                    provider.add(paramList.get(j).toString());
+//                                    if(paramList.get(j).toString().equals("android.content.Intent"))
+//                                    {
+//                                        provider.add()
+//                                        break;
+//                                    }
+                                }
+
+
                                 if (invokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Context") || invokeExpr.getMethod().getDeclaringClass().getName().equals("android.app.Service")) {
 //                                    provider.add("startForeground");
                                     numSF++;
