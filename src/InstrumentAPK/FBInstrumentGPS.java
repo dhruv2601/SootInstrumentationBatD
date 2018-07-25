@@ -25,6 +25,5 @@ public class FBInstrumentGPS  {
         Scene.v().addBasicClass("java.lang.System", SootClass.SIGNATURES);
 
         soot.Main.main(args);
-
     }
 }

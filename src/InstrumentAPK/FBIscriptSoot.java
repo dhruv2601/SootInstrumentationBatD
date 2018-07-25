@@ -234,8 +234,6 @@ public class FBIscriptSoot {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static void deleteFolder(File folder) {
