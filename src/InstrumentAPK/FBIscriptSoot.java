@@ -29,8 +29,8 @@ public class FBIscriptSoot {
         int testCounter = 0;
 
         String csvFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/refData.csv";
-//        String OUTER_DIR = "/media/dhruv2601/Carseat/Top500FreeAppDataset/data_extend/";   // is appended to APK path later
-        String OUTER_DIR = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/";   // is appended to APK path later
+        String OUTER_DIR = "/media/dhruv2601/Carseat/Top500FreeAppDataset/data_extend/";   // is appended to APK path later
+//        String OUTER_DIR = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/";   // is appended to APK path later
 
         CSVReader reader = null;
 
@@ -40,12 +40,18 @@ public class FBIscriptSoot {
 
             while((line = reader.readNext())!=null)
             {
+                numBackground = 0;
+                numForeground = 0;
+                numGPSForeground = 0;
+                numGPSBackground = 0;
+
                 int tabCounter = 0;
                 StringBuilder serialNum = new StringBuilder();
                 StringBuilder packageName = new StringBuilder();
                 StringBuilder targetSDK = new StringBuilder();
                 StringBuilder minSDK = new StringBuilder();
                 StringBuilder maxSDK = new StringBuilder();
+                StringBuilder totalServices = new StringBuilder();
 
                 String s = line[0];
                 for(char ch: s.toCharArray())
@@ -75,6 +81,10 @@ public class FBIscriptSoot {
                         if(tabCounter==5)
                         {
                             maxSDK.append(ch);
+                        }
+                        if(tabCounter == 6)
+                        {
+                            totalServices.append(ch);
                         }
                     }
                 }
@@ -215,6 +225,8 @@ public class FBIscriptSoot {
                     thunderWriter.write(String.valueOf((numGPSBackground)));
                     thunderWriter.write(TAB_DELIMITER);
                     thunderWriter.write(String.valueOf(numGPSForeground));
+                    thunderWriter.write(TAB_DELIMITER);
+                    thunderWriter.write(String.valueOf(totalServices));
                     thunderWriter.write(NEW_LINE_SEPERATOR);
 
                 }
@@ -231,7 +243,7 @@ public class FBIscriptSoot {
                 testCounter++;
 
                 File sootOutput = new File(OUTPUT_SOOT_DIR);
-//                deleteFolder(sootOutput);
+                deleteFolder(sootOutput);
 
                 try {
                     TimeUnit.SECONDS.sleep(40);
