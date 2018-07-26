@@ -29,7 +29,8 @@ public class FBIscriptSoot {
         int testCounter = 0;
 
         String csvFile = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/refData.csv";
-        String OUTER_DIR = "/media/dhruv2601/Carseat/TopFreeAppsDataSet/";   // is appended to APK path later
+//        String OUTER_DIR = "/media/dhruv2601/Carseat/Top500FreeAppDataset/data_extend/";   // is appended to APK path later
+        String OUTER_DIR = "/home/dhruv2601/IdeaProjects/Soot_Instrumenter/InstrumentAPK/";   // is appended to APK path later
 
         CSVReader reader = null;
 
@@ -55,23 +56,23 @@ public class FBIscriptSoot {
                     }
                     else
                     {
-                        if(tabCounter==0)
+                        if(tabCounter==1)
                         {
                             serialNum.append(ch);
                         }
-                        if(tabCounter==1)
+                        if(tabCounter==2)
                         {
                             packageName.append(ch);
                         }
-                        if(tabCounter==2)
+                        if(tabCounter==3)
                         {
                             targetSDK.append(ch);
                         }
-                        if(tabCounter==3)
+                        if(tabCounter==4)
                         {
                             minSDK.append(ch);
                         }
-                        if(tabCounter==4)
+                        if(tabCounter==5)
                         {
                             maxSDK.append(ch);
                         }
@@ -103,8 +104,8 @@ public class FBIscriptSoot {
                     for(int i = 0; i<listOfFiles.length; i++)
                     {
                         int flag = 0;
-                        numBackground = 0; numForeground = 0;
-                        numGPSBackground = 0; numGPSForeground = 0;
+//                        numBackground = 0; numForeground = 0;
+//                        numGPSBackground = 0; numGPSForeground = 0;
 
                         isBackground = false; isForeground = false; isService = false;
 
@@ -125,13 +126,17 @@ public class FBIscriptSoot {
 
                             while((jLine = bufferedReader.readLine())!=null)
                             {
-                                if(jLine.contains("extends Service") || jLine.contains("extends IntentService"))
+                                if((jLine.contains("extends android.app.Service")
+                                        || jLine.contains("extends android.app.IntentService"))
+                                        &&(!jLine.contains("android.support.")))
                                 {
+                                    System.out.println("jLine: "+jLine);
                                     isService = true;
                                 }
 
-                                if(jLine.contains("startForeground") && isService)
+                                if(jLine.contains("startForeground") && !jLine.contains("startForegroundService") && isService)
                                 {
+                                    System.out.println("CONTAINS startForeground");
                                     isForeground = true;
                                     isBackground = false;
                                 }
@@ -218,17 +223,21 @@ public class FBIscriptSoot {
                     e.printStackTrace();
                 }
 
+                System.out.println("Total foreground service: "+numForeground+" total GPSFromForeground: "+numGPSForeground);
+
+                System.out.println("Back: "+numBackground+" Fore: "+numForeground+
+                        " GPSFore: "+numGPSForeground+" GPSBack: "+numGPSBackground);
+
                 testCounter++;
 
                 File sootOutput = new File(OUTPUT_SOOT_DIR);
-                deleteFolder(sootOutput);
+//                deleteFolder(sootOutput);
 
                 try {
                     TimeUnit.SECONDS.sleep(40);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
 
         } catch (IOException e) {
