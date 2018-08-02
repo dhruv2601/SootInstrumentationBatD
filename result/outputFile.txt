@@ -1,5 +1,6 @@
-
-startForeground ; startForeground ; startForegroundService ; className:: android.content.Context false ; startService ; className:: android.content.ContextWrapper false ; className:: android.content.ContextWrapper false ; startForegroundService ; startForegroundService ; className:: android.content.ContextWrapper false ; className:: android.content.ContextWrapper false ; startForegroundService ; className:: android.content.ContextWrapper false	|		|		|		|	
-
-2 4 1
-
+createNotificationChannel android.app.NotificationManager
+foregroundInvokedFromChild java.lang.String
+onBind android.content.Intent
+onStartCommand android.content.Intent
+onStartCommand int
+onStartCommand int
