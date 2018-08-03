@@ -15,7 +15,8 @@ class Constants {
 //    public final static String APK_NAME = "com.okcupid.okcupid.apk";
 //    public final static String APK_NAME = "com.groupon.apk";
 //    public final static String APK_NAME = "LocationTeseterDhruv.apk";
-    public final static String APK_NAME = "LocationTesterDhruv2.apk";
+//    public final static String APK_NAME = "LocationTesterDhruv2.apk";
+    public final static String APK_NAME = "LocationTesterDhruv3.apk";
 //    public final static String APK_NAME = "com.ubercab.apk";
 //    public final static String APK_NAME = "com.facebook.mlite.apk";
 

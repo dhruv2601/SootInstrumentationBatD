@@ -6,6 +6,7 @@ import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.jimple.Jimple;
 import soot.jimple.infoflow.android.manifest.ProcessManifest;
+import soot.jimple.toolkits.callgraph.Units;
 import soot.options.Options;
 
 import java.io.BufferedWriter;
@@ -49,11 +50,36 @@ public class InstrumentCurrentTest {
                     while (it1.hasNext()) {
                         SootClass sc = (SootClass) it1.next();
 
-                        if(sc.getJavaStyleName().contains("CallingServiceAct")) {
+                        if(sc.getJavaStyleName().equals("MainActivity")) {
                             List<SootMethod> sootMethods = sc.getMethods();
                             for(int i=0;i<sootMethods.size();i++)
                             {
-                                provider.add(sootMethods.get(i).getName()+"\n"+sootMethods.get(i).getDeclaringClass().getJavaStyleName().toString());
+                                SootMethod sootMethod = sootMethods.get(i);
+                                if(sootMethod.hasActiveBody())
+                                {
+                                    Body body = sootMethod.retrieveActiveBody();
+                                    final PatchingChain<Unit> unit = body.getUnits();
+                                    int x=0;
+                                    for(Iterator<Unit> iterator = unit.snapshotIterator(); iterator.hasNext();)
+                                    {
+                                        final Unit u = iterator.next();
+                                        u.apply(new AbstractStmtSwitch() {
+                                            @Override
+                                            public void caseInvokeStmt(InvokeStmt stmt) {
+                                                InvokeExpr invokeExpr = stmt.getInvokeExpr();
+
+                                                if(!invokeExpr.getMethod().getName().contains("<init>"))
+                                                {
+                                                    provider.add(invokeExpr.getMethod().getName()+" "+invokeExpr.getMethod().getDeclaringClass().getName()+"\n");
+                                                }
+
+                                                super.caseInvokeStmt(stmt);
+                                            }
+                                        });
+                                    }
+                                }
+
+//                                provider.add(sootMethod.getName()+" "+sootMethod.getDeclaringClass().getName()+"\n");
                             }
                         }
                     }

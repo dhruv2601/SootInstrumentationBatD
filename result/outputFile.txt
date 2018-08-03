@@ -1,6 +1,18 @@
-createNotificationChannel android.app.NotificationManager
-foregroundInvokedFromChild java.lang.String
-onBind android.content.Intent
-onStartCommand android.content.Intent
-onStartCommand int
-onStartCommand int
+
+onCreate android.support.v7.app.AppCompatActivity
+ ; setContentView android.support.v7.app.AppCompatActivity
+ ; startService android.content.ContextWrapper
+ ; startService android.content.ContextWrapper
+ ; startForegroundService android.content.ContextWrapper
+ ; startForegroundService android.content.ContextWrapper
+ ; startService android.content.ContextWrapper
+ ; startService android.content.ContextWrapper
+ ; startForegroundService android.content.ContextWrapper
+ ; startService android.content.ContextWrapper
+ ; startService android.content.ContextWrapper
+ ; testNotSoFunCtion rathi.servicetesting.NormalActivity
+ ; testNotSoFunCtion2 rathi.servicetesting.NormalActivity
+
+
+0 0 0
+
