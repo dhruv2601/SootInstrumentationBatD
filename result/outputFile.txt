@@ -16,3 +16,30 @@ onCreate android.support.v7.app.AppCompatActivity
 
 0 0 0
 
+
+onCreate android.support.v7.app.AppCompatActivity
+ ; setContentView android.support.v7.app.AppCompatActivity
+ ; setContentView android.support.v7.app.AppCompatActivity
+ ; onCreate android.support.v7.app.AppCompatActivity
+ ; setContentView android.support.v7.app.AppCompatActivity
+
+
+0 0 0
+
+
+foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
+ ; d android.util.Log
+ ; onCreate rathi.servicetesting.TestForegroundService
+ ; foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
+ ; d android.util.Log
+ ; onCreate rathi.servicetesting.TestForegroundService
+ ; foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
+ ; d android.util.Log
+ ; onCreate rathi.servicetesting.TestForegroundService
+ ; foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
+ ; d android.util.Log
+ ; onCreate rathi.servicetesting.TestForegroundService
+
+
+0 0 0
+

@@ -112,7 +112,7 @@ public class InstanceInstrumentSecondJ {
 
                                     fullMethodDeclaration = fullMethodDeclaration.concat(")");
                                     fullMethodDeclaration = fullMethodDeclaration.concat(sootClass.getName().toString());
-
+                                    
                                     if (jimpleBody != null) {
                                         if(!logging.contains(jimpleBody.toString()))
                                         {
@@ -225,7 +225,6 @@ public class InstanceInstrumentSecondJ {
     {
         if(sootMethod.hasActiveBody())
         {
-
             final Body activeBody = sootMethod.getActiveBody();
             if(activeBody instanceof JimpleBody)
             {

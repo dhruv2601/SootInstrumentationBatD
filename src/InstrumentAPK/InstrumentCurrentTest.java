@@ -50,12 +50,12 @@ public class InstrumentCurrentTest {
                     while (it1.hasNext()) {
                         SootClass sc = (SootClass) it1.next();
 
-                        if(sc.getJavaStyleName().equals("MainActivity")) {
+                        if(sc.getJavaStyleName().equals("CallingServiceAct")) {
                             List<SootMethod> sootMethods = sc.getMethods();
                             for(int i=0;i<sootMethods.size();i++)
                             {
                                 SootMethod sootMethod = sootMethods.get(i);
-                                if(sootMethod.hasActiveBody())
+                                if(sootMethod.retrieveActiveBody()!=null)
                                 {
                                     Body body = sootMethod.retrieveActiveBody();
                                     final PatchingChain<Unit> unit = body.getUnits();
