@@ -21,3 +21,16 @@ Just took 41 minutes to analyze Google maps hahahaha
 UPDATE:
 
 So lol happened to me just now when I realized that the the 3 elements numSS, numSFS and numSF were never initialized to zero, aur jab tak koi error nhi aata their values keeps adding apni pehle vali values mn, tho baat yu hai ki till the index 340 in the ThunderOuput, subtract the no. algo for each interruption in serial no. and that will do the trick.
+
+
+startForegroundService with android.content.Intent is called two extra times in total
+
+
+jLine: public abstract class android.support.v4.app.NotificationCompatSideChannelService extends android.app.Service // extra
+jLine: public class rathi.servicetesting.TestForegroundService extends android.app.Service
+CONTAINS startForeground
+jLine: public class rathi.servicetesting.TestLocationService extends android.app.Service
+CONTAINS startForeground
+jLine: public class rathi.servicetesting.TestService extends android.app.Service
+jLine: public abstract class android.support.v4.app.JobIntentService extends android.app.Service  //extra
+Back: 3 Fore: 2 GPSFore: 1 GPSBack: 0

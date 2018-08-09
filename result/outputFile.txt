@@ -1,45 +1,22 @@
 
-onCreate android.support.v7.app.AppCompatActivity
- ; setContentView android.support.v7.app.AppCompatActivity
- ; startService android.content.ContextWrapper
- ; startService android.content.ContextWrapper
- ; startForegroundService android.content.ContextWrapper
- ; startForegroundService android.content.ContextWrapper
- ; startService android.content.ContextWrapper
- ; startService android.content.ContextWrapper
- ; startForegroundService android.content.ContextWrapper
- ; startService android.content.ContextWrapper
- ; startService android.content.ContextWrapper
- ; testNotSoFunCtion rathi.servicetesting.NormalActivity
- ; testNotSoFunCtion2 rathi.servicetesting.NormalActivity
+
+startService(android.content.Intent)|android.content.ContextWrapper 
+getServiceStarted()|rathi.servicetesting.MainActivity 
+onCreate(android.os.Bundle)|rathi.servicetesting.MainActivity 
+onCreate()|rathi.servicetesting.TestLocationService 
+onCreate()|rathi.servicetesting.CallingServiceAct 
 
 
-0 0 0
+stopService(android.content.Intent)|android.content.ContextWrapper 
 
 
-onCreate android.support.v7.app.AppCompatActivity
- ; setContentView android.support.v7.app.AppCompatActivity
- ; setContentView android.support.v7.app.AppCompatActivity
- ; onCreate android.support.v7.app.AppCompatActivity
- ; setContentView android.support.v7.app.AppCompatActivity
+startForeground(int,android.app.Notification)|android.app.Service 
+foregroundInvokedFromChild(java.lang.String)|rathi.servicetesting.TestForegroundService 
+onCreate(android.os.Bundle)|rathi.servicetesting.MainActivity 
+onCreate()|rathi.servicetesting.TestLocationService 
+onCreate()|rathi.servicetesting.CallingServiceAct 
 
 
-0 0 0
-
-
-foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
- ; d android.util.Log
- ; onCreate rathi.servicetesting.TestForegroundService
- ; foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
- ; d android.util.Log
- ; onCreate rathi.servicetesting.TestForegroundService
- ; foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
- ; d android.util.Log
- ; onCreate rathi.servicetesting.TestForegroundService
- ; foregroundInvokedFromChild rathi.servicetesting.TestForegroundService
- ; d android.util.Log
- ; onCreate rathi.servicetesting.TestForegroundService
-
-
-0 0 0
+stopForeground(int)|android.app.Service 
+stopForeground(boolean)|android.app.Service 
 
