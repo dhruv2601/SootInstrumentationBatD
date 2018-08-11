@@ -1,0 +1,45 @@
+// -- com.tinder.apk output 
+
+
+-> List for startService:
+
+startService(android.content.Intent)|android.content.ContextWrapper 
+startService(android.content.Intent)|android.app.Service 
+C()|com.tinder.managers.ManagerApp 
+B()|com.tinder.managers.ManagerApp 
+p()|com.tinder.managers.ManagerApp 
+d()|com.tinder.base.d 
+onResume()|com.tinder.base.d 
+onResume()|com.tinder.passport.activities.ActivityPassport 
+onCreate()|com.tinder.managers.ManagerApp 
+onResume()|com.tinder.activities.ActivityAddPhoto 
+onResume()|com.tinder.activities.ActivityCallToActionBrowser 
+onResume()|com.tinder.activities.ActivityEditProfile 
+onResume()|com.tinder.activities.ActivityJob 
+onResume()|com.tinder.activities.SchoolActivity 
+onResume()|com.tinder.settings.activity.SettingsActivity 
+onResume()|com.tinder.tinderplus.activities.ActivityTPlusControl 
+onResume()|com.tinder.activities.MainActivity 
+onResume()|com.tinder.profile.activities.CurrentUserProfileActivity 
+onResume()|com.tinder.settings.loops.activity.AutoPlayLoopsOptionsActivity 
+onResume()|com.tinder.chat.activity.ChatActivity 
+onTokenRefresh()|com.tinder.services.InstanceIdUpdateListenerService 
+onTokenRefresh()|com.leanplum.LeanplumPushInstanceIDService 
+onResume()|com.tinder.chat.activity.GrandGestureChatActivity 
+
+
+-> List for stopService:
+
+stopService(android.content.Intent)|android.content.ContextWrapper 
+stopService(android.content.Intent)|android.app.Service 
+
+
+-> List for startForeground:
+
+startForeground(int,android.app.Notification)|android.app.Service 
+
+
+-> List for stopForeground:
+
+stopForeground(int)|android.app.Service 
+stopForeground(boolean)|android.app.Service 

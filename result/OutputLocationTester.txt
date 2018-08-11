@@ -1,0 +1,37 @@
+//-- LocationTesterDhruv4.apk output
+
+
+-> List for startService:
+
+startService(android.content.Intent)|android.content.ContextWrapper 
+startService(android.content.Intent)|android.app.Service 
+getServiceStarted()|rathi.servicetesting.MainActivity 
+onCreate(android.os.Bundle)|rathi.servicetesting.MainActivity 
+onCreate()|rathi.servicetesting.TestLocationService 
+onCreate()|rathi.servicetesting.CallingServiceAct 
+
+
+-> List for stopService:
+
+stopService(android.content.Intent)|android.content.ContextWrapper 
+stopService(android.content.Intent)|android.app.Service 
+onCreate(android.os.Bundle)|rathi.servicetesting.MainActivity 
+onCreate()|rathi.servicetesting.CallingServiceAct 
+
+
+-> List for startForeground:
+
+startForeground(int,android.app.Notification)|android.app.Service 
+foregroundInvokedFromChild(java.lang.String)|rathi.servicetesting.TestForegroundService 
+onCreate(android.os.Bundle)|rathi.servicetesting.MainActivity 
+onCreate()|rathi.servicetesting.TestLocationService 
+onCreate()|rathi.servicetesting.CallingServiceAct 
+
+
+-> List for stopForeground:
+
+stopForeground(int)|android.app.Service 
+stopForeground(boolean)|android.app.Service 
+stopForegroundInvokedFromChild(java.lang.String)|rathi.servicetesting.TestForegroundService 
+onCreate()|rathi.servicetesting.CallingServiceAct 
+

@@ -17,11 +17,14 @@ class Constants {
 //    public final static String APK_NAME = "LocationTeseterDhruv.apk";
 //    public final static String APK_NAME = "LocationTesterDhruv2.apk";
 //    public final static String APK_NAME = "LocationTesterDhruv3.apk";
-    public final static String APK_NAME = "LocationTesterDhruv4.apk";
+//    public final static String APK_NAME = "LocationTesterDhruv4.apk";
+//    public final static String APK_NAME = "com.spotify.apk";
+
+//    public final static String APK_NAME = "com.tinder.apk";
+    public final static String APK_NAME = "com.whatsapp.apk";
 
 //    public final static String APK_NAME = "com.ubercab.apk";
 //    public final static String APK_NAME = "com.facebook.mlite.apk";
-
 
 
 //    public final static String APK_NAME = "ch.publisheria.bring.apk";
