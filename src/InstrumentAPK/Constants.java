@@ -1,7 +1,6 @@
 package InstrumentAPK;
 
 class Constants {
-    final static String SCRIPTS_DIR = "/media/dhruv2601/lisp/Research/Battery_Optimization/APKcollector/Instrument/Soot_Instrumenter/InstrumentAPK/Scripts/";
 
     // Variables for paths to Android and APKs
     final static String ANDROID_JAR = "/home/dhruv2601/Android/Sdk/platforms/";
@@ -17,11 +16,11 @@ class Constants {
 //    public final static String APK_NAME = "LocationTeseterDhruv.apk";
 //    public final static String APK_NAME = "LocationTesterDhruv2.apk";
 //    public final static String APK_NAME = "LocationTesterDhruv3.apk";
-//    public final static String APK_NAME = "LocationTesterDhruv4.apk";
+    public final static String APK_NAME = "LocationTesterDhruv4.apk";
 //    public final static String APK_NAME = "com.spotify.apk";
 
 //    public final static String APK_NAME = "com.tinder.apk";
-    public final static String APK_NAME = "com.whatsapp.apk";
+//    public final static String APK_NAME = "com.whatsapp.apk";
 
 //    public final static String APK_NAME = "com.ubercab.apk";
 //    public final static String APK_NAME = "com.facebook.mlite.apk";
