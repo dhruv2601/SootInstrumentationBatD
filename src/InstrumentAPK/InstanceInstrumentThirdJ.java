@@ -31,6 +31,8 @@ public class InstanceInstrumentThirdJ {
     static int sizeStartForeground = mStartForeground.size();
     static int sizeStopForeground = mStopForeground.size();
 
+    static int c1 = 0, c2 = 0;
+
     public static void main(String[] args) {
 
         try {
@@ -129,8 +131,13 @@ public class InstanceInstrumentThirdJ {
                                     fullMethodDeclaration = fullMethodDeclaration.concat(")|");
                                     fullMethodDeclaration = fullMethodDeclaration.concat(sootClass.getName().toString());
                                     final String fullMethodName = fullMethodDeclaration;
+                                    System.out.println("fullMethodName: "+fullMethodName);
+
+
+
 
                                     if (sootMethod.hasActiveBody()) {
+                                        c1++;
                                         Body body1 = sootMethod.retrieveActiveBody();
                                         final PatchingChain<Unit> unit = body1.getUnits();
                                         int x = 0;
@@ -191,6 +198,10 @@ public class InstanceInstrumentThirdJ {
                                             });
                                         }
                                     }
+                                    if(!sootMethod.hasActiveBody())
+                                    {
+                                        c2++;
+                                    }
 
                                 }
 
@@ -233,21 +244,22 @@ public class InstanceInstrumentThirdJ {
 
             potentMethods.add("\n");
             for (int w = 0; w < mStartService.size(); w++) {
-                potentMethods.add(mStartService.get(w) + " ");
+                potentMethods.add(mStartService.get(w));
             }
             potentMethods.add("\n");
             for (int w = 0; w < mStopService.size(); w++) {
-                potentMethods.add(mStopService.get(w) + " ");
+                potentMethods.add(mStopService.get(w));
             }
             potentMethods.add("\n");
             for (int w = 0; w < mStartForeground.size(); w++) {
-                potentMethods.add(mStartForeground.get(w) + " ");
+                potentMethods.add(mStartForeground.get(w));
             }
             potentMethods.add("\n");
             for (int w = 0; w < mStopForeground.size(); w++) {
-                potentMethods.add(mStopForeground.get(w) + " ");
+                potentMethods.add(mStopForeground.get(w));
             }
             potentMethods.add("\n");
+            potentMethods.add("Active: "+ c1 +"  !Active body: "+c2+"\n");
 
             String logger = String.join("\n", potentMethods);
 //            clearFile(RESULTFILE);

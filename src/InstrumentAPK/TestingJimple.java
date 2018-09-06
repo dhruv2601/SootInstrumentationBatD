@@ -10,6 +10,7 @@ public class TestingJimple {
     {
         String JIMIPLE_DIR = "/media/dhruv2601/Carseat/Top500FreeAppDataset/jimple_output/";
         String OUTPUT_DIR = "/media/dhruv2601/Carseat/Top500FreeAppDataset/velvet_output.txt";
+        String TEMP_OUT_DIR = "/media/dhruv2601/Carseat/Top500FreeAppDataset/temp_output.txt";
 
         File folder = new File(JIMIPLE_DIR);
 
@@ -30,23 +31,26 @@ public class TestingJimple {
                         BufferedReader bufferedReader = new BufferedReader(fileReader);
                         BufferedWriter thunderWriter = new BufferedWriter(new FileWriter(OUTPUT_DIR, true));
 
+                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(TEMP_OUT_DIR, true));
+
                         while((jLine = bufferedReader.readLine())!=null)
                         {
+                            bufferedWriter.write(jLine+"\n");
                             if(jLine.contains("startService"))
                             {
-                                thunderWriter.write("startService  "+fileName.toString());
+                                thunderWriter.write("startService  "+listFiles[i].getName()+"\n");
                             }
                             if(jLine.contains("stopService"))
                             {
-                                thunderWriter.write("stopService  "+fileName);
+                                thunderWriter.write("stopService  "+listFiles[i].getName()+"\n");
                             }
                             if(jLine.contains("startForeground"))
                             {
-                                thunderWriter.write("startForeground  "+fileName);
+                                thunderWriter.write("startForeground  "+listFiles[i].getName()+"\n");
                             }
                             if(jLine.contains("stopForeground"))
                             {
-                                thunderWriter.write("stopForeground  "+fileName);
+                                thunderWriter.write("stopForeground  "+ listFiles[i].getName()+"\n");
                             }
                         }
                         bufferedReader.close();
