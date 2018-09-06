@@ -43,44 +43,63 @@ public class EastORWest {
 
                     while (iterator.hasNext()) {
                         SootClass sootClass = (SootClass) iterator.next();
-                        int flag = 0;
-                        String className = sootClass.getName();
 
-                        serviceClassList.add(className);
-
-                        while (gotParent(sootClass)) {
-                            sootClass = sootClass.getSuperclass();
-                            String tempClassName = sootClass.getName();
-                            classNameList.add(tempClassName);
-                            if (tempClassName.equals("android.app.Service")) {
-                                break;
-                            }
-                        }
-
-                        if(classNameList.get(classNameList.size()-1).equals("android.app.Service"))
+                        if(!sootClass.getName().contains("android.support"))
                         {
-                            for(int f=0;f<classNameList.size();f++)
+                            List<SootClass> hierarchySootClass = doesClassExtendsService(sootClass);
+                            if(hierarchySootClass.size()==0)
                             {
-                                if(serviceClassList.contains(classNameList.get(f)))
+                                System.out.println("The class "+sootClass.getName()+" does not extend service");
+                            }
+                            else
+                            {
+                                System.out.println("The hierarchy for the class " +sootClass.getName()+"goes as follows: ");
+                                for(int t=0;t<hierarchySootClass.size();t++)
                                 {
-                                    // has already processed the class, now find instances.
-                                }
-                                else
-                                {
-                                    // load the class from scene and do the analysis to get the instances.
+                                    System.out.println(hierarchySootClass.get(t).getName());
                                 }
                             }
                         }
 
-                        String topSuperClassName = sootClass.getName();
 
-                        if (topSuperClassName.equals("android.app.Service") && !className.contains("android.support")) {
-                            for(int f=0;f<classNameList.size();f++)
-                            {
-                                System.out.println("Class: " + className + " Parent: " + classNameList.get(f));
-                            }
-                        }
-                        classNameList.clear();
+//                        int flag = 0;
+//                        String className = sootClass.getName();
+//
+//                        serviceClassList.add(className);
+//
+//                        while (gotParent(sootClass)) {
+//                            sootClass = sootClass.getSuperclass();
+//                            String tempClassName = sootClass.getName();
+//                            classNameList.add(tempClassName);
+//                            if (tempClassName.equals("android.app.Service")) {
+//                                break;
+//                            }
+//                        }
+//
+//                        if(classNameList.get(classNameList.size()-1).equals("android.app.Service"))
+//                        {
+//                            for(int f=0;f<classNameList.size();f++)
+//                            {
+//                                if(serviceClassList.contains(classNameList.get(f)))
+//                                {
+//                                    // has already processed the class, now find instances.
+//                                }
+//                                else
+//                                {
+//                                    // load the class from scene and do the analysis to get the instances.
+//                                }
+//                            }
+//                        }
+//
+//                        String topSuperClassName = sootClass.getName();
+//
+//                        if (topSuperClassName.equals("android.app.Service") && !className.contains("android.support")) {
+//                            for(int f=0;f<classNameList.size();f++)
+//                            {
+//                                System.out.println("Class: " + className + " Parent: " + classNameList.get(f));
+//                            }
+//                        }
+//                        classNameList.clear();
                     }
                     count++;
                 }
@@ -181,12 +200,12 @@ public class EastORWest {
         {
             sootClass = sootClass.getSuperclass();
             String tempClassName = sootClass.getName();
-                sootClassList.add(sootClass);
-                if(tempClassName.equals("android.app.Service"))
-                {
-                    jhanda = 1;
-                    break;
-                }
+            sootClassList.add(sootClass);
+            if(tempClassName.equals("android.app.Service"))
+            {
+                jhanda = 1;
+                break;
+            }
         }
 
         if(jhanda==0)

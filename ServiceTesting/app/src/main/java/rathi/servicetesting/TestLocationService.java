@@ -76,6 +76,11 @@ public class TestLocationService extends Service{
     public void onCreate() {
         super.onCreate();
 
+//        --
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.getServiceStarted();       // see if a public method gets it working or not, then further check for a static method
+//        --
+
         Log.e(TAG, "onCreate");
         initializeLocationManager();
         try {

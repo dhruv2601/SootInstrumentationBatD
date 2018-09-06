@@ -3,6 +3,7 @@
     package="rathi.servicetesting">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,9 +19,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".TestService"/>
-        <service android:name=".TestForegroundService"/>
+        <service android:name=".TestService" />
+        <service android:name=".TestForegroundService" />
+        <service android:name=".TestLocationService" />
+        <service android:name=".CallingServiceAct" />
 
+        <activity android:name=".NormalActivity"></activity>
     </application>
 
 </manifest>
