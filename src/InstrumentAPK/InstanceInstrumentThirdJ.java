@@ -134,8 +134,6 @@ public class InstanceInstrumentThirdJ {
                                     System.out.println("fullMethodName: "+fullMethodName);
 
 
-
-
                                     if (sootMethod.hasActiveBody()) {
                                         c1++;
                                         Body body1 = sootMethod.retrieveActiveBody();
@@ -190,7 +188,6 @@ public class InstanceInstrumentThirdJ {
                                                                 mStopForeground.add(fullMethodName);
                                                             }
                                                         }
-
                                                     }
 
                                                     super.caseInvokeStmt(stmt);

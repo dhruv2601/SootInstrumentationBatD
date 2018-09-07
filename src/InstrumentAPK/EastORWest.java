@@ -6,7 +6,6 @@ import soot.jimple.InvokeExpr;
 import soot.jimple.InvokeStmt;
 import soot.options.Options;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -146,7 +145,7 @@ public class EastORWest {
         if(hierarchySootClassList.size()!=0)
         {
             // extends service and we have the list of sootClasses to analyze here,
-            // but the point is that we need to analyze each method with us and see if it contains in any of it's heirarchy any calls to startForeground or startForegroundService functions, if it does then it is to be added in the sfMethod list else move on to the next function in the class list.
+            // but the point is that we need to analyze each method with us and see if it contains in any of it's hierarchy any calls to startForeground or startForegroundService functions, if it does then it is to be added in the sfMethod list else move on to the next function in the class list.
             for(int g=0;g<hierarchySootClassList.size();g++)
             {
                 SootClass hSootClass = hierarchySootClassList.get(g);
